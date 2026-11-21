@@ -176,7 +176,7 @@ async function run() {
           <div class="meta">
             <span class="badge ${h.role === "user" ? "you" : "me"}">${h.role === "user" ? "你" : "鱼鱼"}</span>
             <span>${esc(fmt(h.time))}</span>
-            <span>${esc(h.sid.slice(0, 8))}</span>
+            <span>${esc(h.sid.replace(/^session-/, "").slice(0, 8))}</span>
           </div>
           <div class="snip">${hl(h.snippet, data.query)}</div>
           <div class="ctx">${(h.context || []).map((c) => `
@@ -193,6 +193,10 @@ async function run() {
 }
 $("go").addEventListener("click", run);
 qEl.addEventListener("keydown", (e) => { if (e.key === "Enter") run(); });
+
+// 带 ?q= 打开就直接搜，方便把链接存书签
+const preset = new URLSearchParams(location.search).get("q");
+if (preset) { qEl.value = preset; run(); }
 
 fetch("/api/chatsearch/stats").then((r) => r.json()).then((s) => {
   if (s && s.ok) footEl.textContent = `索引 ${s.sessions} 个会话 / ${s.messages} 条消息`;
