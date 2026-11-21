@@ -1,6 +1,6 @@
 {
   "name": "dsh-chat-search",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "搜和鱼鱼聊过的旧话：把 .dsh/sessions 下的会话记录做成可搜的索引，带一个蠢萌小门面。",
   "type": "module",
   "main": "lib/index.js",
@@ -12,11 +12,15 @@
   ],
   "exports": {
     ".": "./lib/index.js",
+    "./client": "./lib/client.js",
     "./package.json": "./package.json"
   },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
     }
   },
   "keywords": [
