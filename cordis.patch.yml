@@ -1,0 +1,4 @@
+# dsh-chat-search — 会话搜索
+- insert:
+    - id: chat-search
+      name: dsh-chat-search
